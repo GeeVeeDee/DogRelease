@@ -1,0 +1,4 @@
+name: DogRelease
+version: '1.0-SNAPSHOT'
+main: org.example.dogRelease.Main
+api-version: '1.21'
