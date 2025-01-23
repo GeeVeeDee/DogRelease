@@ -6,12 +6,14 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        saveDefaultConfig();
 
+        getServer().getPluginManager().registerEvents(new PlayerInteractHandler(this), this);
+
+        getLogger().info("DogRelease Plugin - made by GeeVeeDee");
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
     }
 }
