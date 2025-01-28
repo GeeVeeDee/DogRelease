@@ -68,14 +68,6 @@ public class PlayerInteractHandler implements Listener {
             return;
         }
 
-        main.getLogger().info(wolf.getEquipment().getItemInOffHand().getType().toString());
-        main.getLogger().info(wolf.getEquipment().getItemInMainHand().getType().toString());
-
-        main.getLogger().info(wolf.getEquipment().getHelmet().getType().toString());
-        main.getLogger().info(wolf.getEquipment().getChestplate().getType().toString());
-        main.getLogger().info(wolf.getEquipment().getLeggings().getType().toString());
-        main.getLogger().info(wolf.getEquipment().getBoots().getType().toString());
-
         Wolf newWolf = (Wolf) wolf.getWorld().spawnEntity(wolf.getLocation(), EntityType.WOLF);
         newWolf.setVariant(wolf.getVariant());
         wolf.remove();
@@ -90,10 +82,6 @@ public class PlayerInteractHandler implements Listener {
     }
 
     private boolean isReleaseItem(ItemStack item) {
-        if (item == null || !item.hasItemMeta()) {
-            return false;
-        }
-
         FileConfiguration config = main.getConfig();
 
         Material expectedType = Material.matchMaterial(config.getString("release-item.type", "STICK"));
@@ -106,7 +94,14 @@ public class PlayerInteractHandler implements Listener {
         String expectedName = config.getString("release-item.name", "");
 
         // TODO: if expected name and/or lore is empty check it instead of ignoring it
-        if (!expectedName.isEmpty()) {
+
+        main.getLogger().info("expected name: " + !expectedName.isEmpty());
+        if (expectedName.isEmpty()) {
+            if (!meta.hasDisplayName()) {
+                main.getLogger().info("return false name");
+                return false;
+            }
+        } else {
             if (meta == null) {
                 return  false;
             }
@@ -123,7 +118,13 @@ public class PlayerInteractHandler implements Listener {
         }
 
         List<String> expectedLore = config.getStringList("release-item.lore");
-        if (!expectedLore.isEmpty()) {
+        main.getLogger().info("expected lore: " + !expectedLore.isEmpty());
+        if (expectedLore.isEmpty()) {
+            if (!item.hasItemMeta() || meta.getLore().size() > 0) {
+                main.getLogger().info("return false lore");
+                return false;
+            }
+        } else {
             if (meta == null) {
                 return  false;
             }
