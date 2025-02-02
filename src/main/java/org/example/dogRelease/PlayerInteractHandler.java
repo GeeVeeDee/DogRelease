@@ -93,11 +93,9 @@ public class PlayerInteractHandler implements Listener {
         ItemMeta meta = item.getItemMeta();
         String expectedName = config.getString("release-item.name", "");
 
-        // TODO: if expected name and/or lore is empty check it instead of ignoring it
-
         main.getLogger().info("expected name: " + !expectedName.isEmpty());
         if (expectedName.isEmpty()) {
-            if (!meta.hasDisplayName()) {
+            if (meta.hasDisplayName()) {
                 main.getLogger().info("return false name");
                 return false;
             }
@@ -120,7 +118,7 @@ public class PlayerInteractHandler implements Listener {
         List<String> expectedLore = config.getStringList("release-item.lore");
         main.getLogger().info("expected lore: " + !expectedLore.isEmpty());
         if (expectedLore.isEmpty()) {
-            if (!item.hasItemMeta() || meta.getLore().size() > 0) {
+            if (meta.getLore() != null) {
                 main.getLogger().info("return false lore");
                 return false;
             }
