@@ -1,0 +1,9 @@
+# The item used as 'release item'. The default minecraft colour coding can be used in the name and lore. For more info, see https://hypixel.net/threads/guide-colour-codes-formatting-codes-in-minecraft.4458811/
+# If desired, the name and lore can be left empty. To do so, write "" as the name or [] as the lore.
+
+release-item:
+  type: STICK
+  name: "&e&lStick of Freedom"
+  lore:
+    - "&7Use this stick to release"
+    - "&7your loyal dog back into the wild."
